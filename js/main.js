@@ -6,63 +6,45 @@ $(function onReady() {
   
   // select the code element by id
   var testOutputContainer = $('#test');
-  
+  // max time button press
+   var well= 50;
+   
   // select the td by class
-  var keypressCell = $('.press');
+  var keyupCell = $('.up');
   
   // variable to count number of keypress events
-  var keypressCounter = 0;
-  
-  // array to store all the key presses
-  var keypresses = [];
-  
-  // attach a keypress listener to the window object 
-  $(window).keypress(function onKeypress(eventArgument) {
-    // get the key from the event arguemnt
-    var key = eventArgument.key;
-    
-    // add the key to the end of the keypresses array
-    keypresses.push(key);
-    
-    // increment the keypressCounter by 1
-    keypressCounter = keypressCounter + 1;
-    
-    // set the text of the keydownCell
-    keypressCell.text(keypressCounter);
-    
-    // set the text of the test output container
-    testOutputContainer.text(keypresses.join(' '));
-  });
-  
-  
-  // select the td by element and child class
-  var keydownCell = $('table .down');
-  
-  // variable to count number of keydown events
-  var keydownCounter = 0;
-  
-  // attach a keydown listener to the window object 
-  $(window).keydown(function onKeydown(eventArgument) {
-    // increment the keydownCounter by 1
-    keydownCounter += 1;
-    
-    // set the text of the keydownCell
-    keydownCell.text(keydownCounter);
-  });
-  
-  // select the td by element and child element with class
-  var keyupCell = $('table td.up');
-  
-  // variable to count number of keyup events
   var keyupCounter = 0;
   
-  // attach a keyup listener to the window object 
-  $(window).keyup(function onKeyup(eventArgument) {
-    // increment the keydownCounter by 1
-    keyupCounter++;
+  // array to store all the key presses
+  var keyup = [];
+  var starttime = new Date().getTime();
+  
+  // attach a keypress listener to the window object 
+  $(window).keyup(function(eventArgument) {
+     if (keyupCounter===well){ 
+    return;
+    }
+    // get the key from the event arguemnt
+    var x = eventArgument.keyCode;              
+    var key = String.fromCharCode(x); 
     
-    // set the text of the keyupCell
+    // add the key to the end of the keypresses array
+    keyup.push(key);
+    
+    // increment the keypressCounter by 1
+    keyupCounter = keyupCounter + 1;
+    
+    // set the text of the keydownCell
     keyupCell.text(keyupCounter);
+      if (keyupCounter===well){ 
+    var endtime= new Date().getTime();
+    alert(endtime-starttime);
+    }
+    
+    // set the text of the test output container
+    testOutputContainer.text(keyup.join(' '));
+ 
   });
+  
 
-});
+ });
